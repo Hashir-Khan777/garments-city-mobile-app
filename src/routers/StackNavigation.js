@@ -5,10 +5,18 @@ import DrawerNavigation from './DrawerNavigation';
 import Shipping from '../screens/Shipping';
 import PlaceOrder from '../screens/PlaceOrder';
 import OrderScreen from '../screens/OrderScreen';
+import Splash from '../screens/Splash';
 
 const Stack = createStackNavigator();
 const StackNavigation = () => (
-  <Stack.Navigator initialRouteName="Home">
+  <Stack.Navigator initialRouteName="Splash">
+    <Stack.Screen
+      name="Splash"
+      component={Splash}
+      options={{
+        headerShown: false,
+      }}
+    />
     <Stack.Screen
       name="Home"
       component={DrawerNavigation}

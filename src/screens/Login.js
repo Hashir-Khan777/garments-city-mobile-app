@@ -17,8 +17,8 @@ import {Sign_In} from '../store/action/UserAction';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 
 const Login = props => {
-  const [email, setEmail] = useState('khnhashir555@gmail.com');
-  const [password, setPassword] = useState('hashirkhangarmentscityadmin');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [backGroundColor, setBackGraoundColor] = useState(false);
   const [passwordVisible, setpasswordVisible] = useState(true);
 
@@ -34,12 +34,12 @@ const Login = props => {
   };
 
   useEffect(() => {
-    if (userInfo && userInfo.token) {
+    if (userInfo && userInfo.name) {
       props.navigation.navigate(redirect);
     }
 
     props.navigation.addListener('focus', () => {
-      if (userInfo && userInfo.token) {
+      if (userInfo && userInfo.name) {
         props.navigation.navigate(redirect);
       }
     });

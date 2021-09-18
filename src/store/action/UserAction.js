@@ -1,17 +1,24 @@
 import Axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const Sign_In = (email, password) => async dispatch => {
   dispatch({type: 'USER_SIGNIN_REQUEST', payload: {email, password}});
   try {
-    const {
-      data,
-    } = await Axios.post(
-      'https://thegarmentscity.herokuapp.com/api/users/signin',
-      {email, password},
-    );
-    dispatch({type: 'USER_SIGNIN_SUCESS', payload: data});
-    await AsyncStorage.setItem('userInfo', JSON.stringify(data));
+    await auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(user => {
+        firestore()
+          .collection('Users')
+          .doc(user.user.uid)
+          .get()
+          .then(doc => {
+            let data = doc.data();
+            dispatch({type: 'USER_SIGNIN_SUCESS', payload: data});
+            AsyncStorage.setItem('userInfo', JSON.stringify(data));
+          });
+      });
   } catch (err) {
     dispatch({
       type: 'USER_SIGNIN_FAIL',
@@ -29,18 +36,30 @@ const UserRegister = (name, email, password, gender) => async dispatch => {
     payload: {name, email, password, gender},
   });
   try {
-    const {data} = await Axios.post(
-      'https://thegarmentscity.herokuapp.com/api/users/register',
-      {
-        name,
-        email,
-        password,
-        gender,
-      },
-    );
-    dispatch({type: 'USER_REGISTER_SUCESS', payload: data});
-    dispatch({type: 'USER_SIGNIN_SUCESS', payload: data});
-    await AsyncStorage.setItem('userInfo', JSON.stringify(data));
+    await auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(user => {
+        firestore().collection('Users').doc(user.user.uid).set({
+          _id: user.user.uid,
+          name: name,
+          email: email,
+          gender: gender,
+          password: password,
+        });
+        let data = {
+          _id: user.user.uid,
+          name: name,
+          email: email,
+          gender: gender,
+          password: password,
+        };
+        dispatch({type: 'USER_REGISTER_SUCESS', payload: data});
+        dispatch({type: 'USER_SIGNIN_SUCESS', payload: data});
+        AsyncStorage.setItem('userInfo', JSON.stringify(data));
+      })
+      .catch(err => {
+        console.log(err);
+      });
   } catch (err) {
     dispatch({
       type: 'USER_REGISTER_FAIL',
@@ -147,9 +166,7 @@ const UpdateUserProfile = user => async (dispatch, getState) => {
 const Admin_Sign_In = (email, password) => async dispatch => {
   dispatch({type: 'ADMIN_SIGNIN_REQUEST', payload: {email, password}});
   try {
-    const {
-      data,
-    } = await Axios.post(
+    const {data} = await Axios.post(
       'https://thegarmentscity.herokuapp.com/api/users/admin',
       {email, password},
     );

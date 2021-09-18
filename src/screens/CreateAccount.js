@@ -48,7 +48,7 @@ const CreateAccount = props => {
   };
 
   useEffect(() => {
-    if (userInfo && userInfo.token) {
+    if (userInfo && userInfo.name) {
       props.navigation.navigate(redirect);
     }
   }, [props.navigation, redirect, userInfo]);

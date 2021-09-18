@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "891358900353",
+    "project_id": "garmentscityshoppingapp",
+    "storage_bucket": "garmentscityshoppingapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891358900353:android:e15d8979913519c7ea5d80",
+        "android_client_info": {
+          "package_name": "com.thegarmentscitymobileapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891358900353-ddf763ftf1oepmqcjf3vhlj0si1cka61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_U35UW61fpe97DuHqeK8DbpcspcpANZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891358900353-ddf763ftf1oepmqcjf3vhlj0si1cka61.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

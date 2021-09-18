@@ -15,6 +15,7 @@ import Login from '../screens/Login';
 import CreateAccount from '../screens/CreateAccount';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
+import { Sign_Out } from '../store/action/UserAction';
 
 const DrawerContent = props => {
   const userRegister = useSelector(state => state.userRegister);
@@ -27,17 +28,26 @@ const DrawerContent = props => {
         start={{x: 0.35, y: 0}}
         end={{x: 0.5, y: 1}}
         style={{
-          height: '47%',
+          height: '30%',
           borderBottomRightRadius: 6,
           borderBottomLeftRadius: 6,
           justifyContent: 'center',
           alignItems: 'center',
           paddingTop: 30,
         }}>
-        <Image
-          style={{width: 100, height: 100, borderRadius: 100}}
-          source={require('../images/demo.png')}
-        />
+        {userInfo && userInfo.image ? (
+          <Image
+            style={{width: 100, height: 100, borderRadius: 100}}
+            source={{
+              uri: userInfo.image,
+            }}
+          />
+        ) : (
+          <Image
+            style={{width: 100, height: 100, borderRadius: 100}}
+            source={require('../images/demo.png')}
+          />
+        )}
         {userInfo && userInfo.name ? (
           <Text
             style={{
@@ -97,6 +107,7 @@ const DrawerContent = props => {
           />
           <DrawerItem
             label="Log Out"
+            onPress={Sign_Out}
             icon={() => <IonIcon name="log-out" size={20} />}
           />
         </View>

@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
@@ -22,9 +21,6 @@ const Home = props => {
   const [backGroundColor, setBackGraoundColor] = useState(false);
   const MoreData = useSelector(state => state.MoreData);
   const {loadMore, errorMore} = MoreData;
-
-  // const clear = async () => await AsyncStorage.clear();
-  // clear();
 
   const dispatch = useDispatch();
 
